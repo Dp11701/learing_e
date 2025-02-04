@@ -1,0 +1,17 @@
+// src/components/TaskPage/TaskPage.scss
+
+.task-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  margin-top: 20px;
+}

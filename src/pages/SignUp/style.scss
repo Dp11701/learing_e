@@ -1,0 +1,61 @@
+/* style.scss */
+@import "../../styles/variables.scss";
+
+.login-layout {
+  height: 100vh;
+  background: url("../../assets/images/background.jpg") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .ant-input,
+  .ant-input-password {
+    height: 40px; /* Thay đổi chiều cao tùy theo ý bạn */
+    line-height: 40px; /* Điều chỉnh line-height cho phù hợp */
+  }
+}
+
+.login-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-card {
+  width: 32vw;
+  background: rgba(255, 255, 255, 0.6); // Màu nền trong suốt
+  backdrop-filter: blur(10px); // Hiệu ứng blur
+  border-radius: 10px;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signup-button {
+  display: flex;
+  justify-content: center;
+  .button-signup {
+    color: $title-text-color;
+    background-color: #fad978;
+    width: 16vw;
+    height: 6vh;
+    font-size: 16px;
+  }
+}
+
+.signup-prompt {
+  margin-top: 10px;
+  text-align: center;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: #000 !important; /* Màu chữ */
+}

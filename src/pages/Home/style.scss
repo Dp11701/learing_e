@@ -1,0 +1,36 @@
+@import "../../styles/variables.scss";
+
+.home-layout {
+  height: 100%;
+  width: 100;
+  padding-top: 12px;
+
+  .home-content {
+    padding: 12px;
+  }
+
+  .ant-layout-header {
+    background-color: $primary-color;
+    color: white;
+  }
+
+  .ant-layout-sider {
+    background-color: $background-color;
+  }
+
+  .task-list {
+    display: flex;
+    gap: 20px;
+
+    .task-card {
+      width: 300px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      transition: transform 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

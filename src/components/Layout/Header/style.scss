@@ -1,0 +1,33 @@
+@import     '../../../styles/variables.scss';
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-color;
+  color: white;
+  padding: 0 20px;
+  height: $header-height;
+
+  .app-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .user-section {
+    display: flex;
+    align-items: center;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      gap: 10px;
+
+      .username {
+        font-size: 16px;
+        color: $title-text-color; 
+      }
+    }
+  }
+}
