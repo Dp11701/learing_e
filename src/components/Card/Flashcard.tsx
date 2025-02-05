@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button } from "antd";
+import { Card, Button, Typography } from "antd";
 import { SwapOutlined, SoundOutlined } from "@ant-design/icons";
 import "./style.scss";
 
@@ -50,20 +50,25 @@ const Flashcard: React.FC<FlashcardProps> = ({
         </div>
       ) : (
         <div className="back">
-          <p className="meaning">{meaning}</p>
+          <div className="meaning-wrapper">
+            <Typography>Định nghĩa:</Typography>
+            <p className="meaning">{meaning}</p>
+          </div>
+
           <p className="example">{example}</p>
           <Button
             className="flip-button"
             icon={<SwapOutlined />}
             onClick={handleFlip}
           />
-          <Button
+          {/* <Button
             className="read-button"
             icon={<SoundOutlined />}
             onClick={handleRead}
-          />
+          /> */}
         </div>
       )}
+      <div className="footer_card"></div>
     </Card>
   );
 };

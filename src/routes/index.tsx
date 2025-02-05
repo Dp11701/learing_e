@@ -21,9 +21,9 @@ const AppRoutes: React.FC = () => {
       /><Route
       path="/task"
       element={
-        <PrivateRoute>
+        <PublicRoute>
           <TaskPage />
-        </PrivateRoute>
+        </PublicRoute>
       }
     />
       <Route
