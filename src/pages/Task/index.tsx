@@ -3,56 +3,54 @@ import Flashcard from "../../components/Card/Flashcard";
 import { Button, Spin, Alert } from "antd";
 import "./style.scss";
 import { useTasks } from "../../api/task";
-import { mockData } from "./mockData";
 import OTPInput from "../../components/Input/OTP";
 
 const TaskPage: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { data: words, isLoading, error } = useTasks();
-  const [inputValue, setInputValue] = useState("");
   const [showInput, setShowInput] = useState(false);
+
   const handleNext = () => {
     setShowInput(true);
   };
 
   const handleSuccess = () => {
     setShowInput(false);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % (mockData?.length || 1));
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % (words as any).length);
   };
+
   const handlePrev = () => {
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + (mockData?.length || 1)) % (mockData?.length || 1)
-    );
+    setShowInput(false);
   };
 
-  // if (isLoading) return <Spin />;
-  // if (error) return <Alert message="Failed to load tasks" type="error" />;
-
-  if (!mockData || mockData.length === 0)
-    return <Alert message="No words available" type="info" />;
+  if (isLoading) return <Spin />;
+  if (error) return <Alert message="Failed to load tasks" type="error" />;
+  if (!words || words.length === 0) return <Alert message="No words available" type="info" />;
 
   return (
     <div className="task-page">
-      {mockData && mockData.length > 0 && (
+      {!showInput && (
         <Flashcard
-          word={mockData[currentIndex].word}
-          phonetic={mockData[currentIndex].phonetic}
-          meaning={mockData[currentIndex].meaning}
-          example={mockData[currentIndex].example}
+          word={words[currentIndex].word}
+          phonetic={words[currentIndex].phonetic}
+          meaning={words[currentIndex].meaning}
+          example={words[currentIndex].example}
         />
       )}
-      <div className="navigation-buttons">
-        <Button onClick={handlePrev}>Từ trước đó</Button>
-        <Button onClick={handleNext}>Từ tiếp theo</Button>
-      </div>
       {showInput && (
         <OTPInput
-          length={mockData[currentIndex].word.length}
-          word={mockData[currentIndex].word}
+          length={words[currentIndex].word.length}
+          word={words[currentIndex].word}
           onSuccess={handleSuccess}
         />
       )}
+      <div className="navigation-buttons" style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+        {showInput ? (
+          <Button onClick={handlePrev}>Quay lại</Button>
+        ) : (
+          <Button onClick={handleNext}>Từ tiếp theo</Button>
+        )}
+      </div>
     </div>
   );
 };

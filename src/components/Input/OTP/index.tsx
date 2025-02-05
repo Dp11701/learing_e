@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Input, Button, message } from "antd";
-import './style.scss'
+import React, { useState, useEffect } from "react";
+import { Card, Input, Typography } from "antd";
+import ConfettiNotification from "../../Noti/ConfettiNotification";
+import "./style.scss";
 
 interface OTPInputProps {
   length: number;
@@ -10,30 +11,58 @@ interface OTPInputProps {
 
 const OTPInput: React.FC<OTPInputProps> = ({ length, word, onSuccess }) => {
   const [inputValue, setInputValue] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationType, setNotificationType] = useState<"success" | "error">(
+    "success"
+  );
+
+  useEffect(() => {
+    if (inputValue.length === length) {
+      if (inputValue === word.toUpperCase()) {
+        setNotificationMessage("Correct word!");
+        setNotificationType("success");
+      } else {
+        setNotificationMessage("Incorrect word. Please try again.");
+        setNotificationType("error");
+      }
+    } else {
+      // Reset notification when input changes
+      setNotificationMessage("");
+      setNotificationType("success");
+    }
+  }, [inputValue, length, word]);
 
   const handleInputChange = (value: string) => {
-    setInputValue(value);
+    setInputValue(value.toUpperCase());
   };
 
-  const handleInputSubmit = () => {
-    if (inputValue === word) {
-      message.success("Correct word!");
-      onSuccess();
-    } else {
-      message.error("Incorrect word. Please try again.");
+  useEffect(() => {
+    if (notificationType === "success" && notificationMessage) {
+      setTimeout(() => {
+        onSuccess();
+      }, 4000); // Hold for 2 seconds before moving to the next word
     }
-  };
+  }, [notificationType, notificationMessage, onSuccess]);
 
   return (
-    <div className="otp-input-container">
-      <Input.OTP
-        value={inputValue}
-        onChange={handleInputChange}
-        length={length}
-        formatter={(str) => str.toUpperCase()}
-      />
-      <Button onClick={handleInputSubmit}>Submit</Button>
-    </div>
+    <Card className="otp-card">
+      <div className="otp-input-container">
+        <Typography style={{fontSize: 28, fontWeight:500}}>Write down the word you just learned</Typography>
+        <Input.OTP
+          value={inputValue}
+          length={length}
+          formatter={(str: string) => str.toUpperCase()}
+          variant="outlined"
+          onChange={handleInputChange}
+        />
+        {notificationMessage && (
+          <ConfettiNotification
+            message={notificationMessage}
+            type={notificationType}
+          />
+        )}
+      </div>
+    </Card>
   );
 };
 
