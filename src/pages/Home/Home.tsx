@@ -1,38 +1,78 @@
-import React from "react";
-import { Layout, List, Card, Progress } from "antd";
+import React, { useEffect } from "react";
+import { Layout, List, Card, Progress, Spin, Alert } from "antd";
+import { useUsers } from "../../api/users";
 import "./style.scss";
+import { CheckOutlined } from "@ant-design/icons";
 import CustomButton from "../../components/Button";
 import { commonColor } from "../../constants/variables";
+import useUserStore from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 const { Content, Sider } = Layout;
 
-type User = {
-  id: number;
-  name: string;
-  progress: number; // Progress in percentage
-};
-
 type Task = {
-  id: number;
+  id: string;
   title: string;
   status: "Incomplete" | "In Progress" | "Completed";
+  progress: number;
 };
-
+const getTaskStatus = (
+  progress: number
+): "Incomplete" | "In Progress" | "Completed" => {
+  if (progress === 100) return "Completed";
+  if (progress > 0) return "In Progress";
+  return "Incomplete";
+};
+const calculateProgress = (progress: string): number => {
+  const [completed, total] = progress.split(" / ").map(Number);
+  return (completed / total) * 100;
+};
 const Home: React.FC = () => {
-  const users: User[] = [
-    { id: 1, name: "Huyền lười học", progress: 60 },
-    { id: 2, name: "Nguyễn Đức Phú", progress: 100 },
-  ];
+  const { data: users, isLoading, error } = useUsers();
 
+  const { user, fetchUser } = useUserStore();
+  const navigate = useNavigate();
+
+  if (!user) {
+    return (
+      <Layout className="home-layout">
+        <Layout>
+          <Sider width={200} className="sider">
+            <Spin />
+          </Sider>
+          <Content className="home-content">
+            <Spin />
+          </Content>
+        </Layout>
+      </Layout>
+    );
+  }
   const tasks: Task[] = [
-    { id: 1, title: "Học 10 từ mới", status: "Incomplete" },
-    { id: 2, title: "Luyện nghe", status: "In Progress" },
-    { id: 3, title: "Ngữ pháp cơ bản", status: "Incomplete" },
+    {
+      id: "word",
+      title: "Học 10 từ mới",
+      status: getTaskStatus(calculateProgress(user.progress.word)),
+      progress: calculateProgress(user.progress.word),
+    },
+    {
+      id: "listen",
+      title: "Luyện nghe",
+      status: getTaskStatus(calculateProgress(user.progress.listen)),
+      progress: calculateProgress(user.progress.listen),
+    },
+    {
+      id: "grammar",
+      title: "Ngữ pháp cơ bản",
+      status: getTaskStatus(calculateProgress(user.progress.grammar)),
+      progress: calculateProgress(user.progress.grammar),
+    },
   ];
-
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
   const handleButtonClick = (status: string) => {
     if (status === "Incomplete") {
-      console.log("Start");
+      navigate('/task')
     } else {
       console.log("Continue");
     }
@@ -43,23 +83,32 @@ const Home: React.FC = () => {
       <Layout>
         {/* Sider for user progress */}
         <Sider width={200} className="sider">
-          <List
-            header={
-              <div>
-                <strong>Users</strong>
-              </div>
-            }
-            bordered
-            dataSource={users}
-            renderItem={(user) => (
-              <List.Item>
-                <div style={{ flex: 1 }}>
-                  {user.name}
-                  <Progress percent={user.progress} size="small" />
+          {isLoading ? (
+            <Spin />
+          ) : error ? (
+            <Alert message="Failed to fetch users" type="error" />
+          ) : (
+            <List
+              header={
+                <div>
+                  <strong>Users</strong>
                 </div>
-              </List.Item>
-            )}
-          />
+              }
+              bordered
+              dataSource={users}
+              renderItem={(user) => (
+                <List.Item key={user.id}>
+                  <div style={{ flex: 1 }}>
+                    {user.name}
+                    <Progress
+                      percent={calculateProgress(user.progress as any)}
+                      size="small"
+                    />
+                  </div>
+                </List.Item>
+              )}
+            />
+          )}
         </Sider>
 
         {/* Content */}
@@ -68,17 +117,20 @@ const Home: React.FC = () => {
           <div className="task-list">
             {tasks.map((task) => (
               <Card key={task.id} className="task-card" title={task.title}>
-                <p>Status: {task.status}</p>
-                <CustomButton
-                  onClick={() => handleButtonClick(task.status)}
-                  title={task.status === "Incomplete" ? "Start" : "Continue"}
-                  color={
-                    task.status === "Incomplete"
-                      ? commonColor.primary.button
-                      : commonColor.secondary.button
-                  }
-                  textColor={commonColor.primary.text}
-                />
+                {task.status === "Completed" ? (
+                  <CheckOutlined style={{ color: "green", fontSize: "24px" }} />
+                ) : (
+                  <CustomButton
+                    onClick={() => handleButtonClick(task.status)}
+                    title={task.status === "Incomplete" ? "Start" : "Continue"}
+                    color={
+                      task.status === "Incomplete"
+                        ? commonColor.primary.button
+                        : commonColor.secondary.button
+                    }
+                    textColor={commonColor.primary.text}
+                  />
+                )}
               </Card>
             ))}
           </div>

@@ -7,6 +7,7 @@ import SignUp from "../pages/SignUp";
 import PrivateRoute from "../components/Router/PrivateRoute";
 import PublicRoute from "../components/Router/PublicRoute";
 import TaskPage from "../pages/Task";
+import AuthForm from "../pages/Auth";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -30,7 +31,7 @@ const AppRoutes: React.FC = () => {
         path="/login"
         element={
           <PublicRoute>
-            <Login />
+            <AuthForm />
           </PublicRoute>
         }
       />

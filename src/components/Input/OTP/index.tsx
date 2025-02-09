@@ -25,13 +25,14 @@ const OTPInput: React.FC<OTPInputProps> = ({ length, word, onSuccess }) => {
         setNotificationMessage("Incorrect word. Please try again.");
         setNotificationType("error");
       }
-    } else {
+    } if (notificationMessage !== "") {
       // Reset notification when input changes
       setNotificationMessage("");
-      setNotificationType("success");
     }
   }, [inputValue, length, word]);
-
+  useEffect(() => {
+    console.log("loi nay", notificationMessage);
+  }, [notificationMessage]);
   const handleInputChange = (value: string) => {
     setInputValue(value.toUpperCase());
   };
@@ -47,7 +48,9 @@ const OTPInput: React.FC<OTPInputProps> = ({ length, word, onSuccess }) => {
   return (
     <Card className="otp-card">
       <div className="otp-input-container">
-        <Typography style={{fontSize: 28, fontWeight:500}}>Write down the word you just learned</Typography>
+        <Typography style={{ fontSize: 28, fontWeight: 500 }}>
+          Write down the word you just learned
+        </Typography>
         <Input.OTP
           value={inputValue}
           length={length}

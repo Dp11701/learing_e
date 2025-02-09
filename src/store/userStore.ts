@@ -2,11 +2,17 @@
 import axios from "axios";
 import { create } from "zustand";
 
+interface Progress {
+  word: string;
+  listen: string;
+  grammar: string;
+}
+
 interface User {
   _id: string;
   username: string;
   name: string;
-  progress: number;
+  progress: Progress;
 }
 
 interface UserState {

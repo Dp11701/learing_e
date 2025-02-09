@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { notification } from "antd";
 import type { NotificationArgsProps } from "antd";
 
@@ -11,6 +11,7 @@ const Context = React.createContext({ name: "Default" });
 
 const Notification: React.FC<NotificationProps> = ({ message, type }) => {
   const [api, contextHolder] = notification.useNotification();
+  const [prevMessage, setPrevMessage] = useState<string | null>(null);
 
   const openNotification = (placement: any) => {
     api[type]({
@@ -21,8 +22,11 @@ const Notification: React.FC<NotificationProps> = ({ message, type }) => {
   };
 
   useEffect(() => {
-    openNotification("topRight");
-  }, [message, type]);
+    if (message !== prevMessage) {
+      openNotification("topRight");
+      setPrevMessage(message);
+    }
+  }, [message, type, prevMessage]);
 
   const contextValue = useMemo(() => ({ name: "Ant Design" }), []);
 
