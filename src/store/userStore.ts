@@ -26,7 +26,7 @@ const useUserStore = create<UserState>((set) => ({
     const token = localStorage.getItem("token");
     if (token) {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/profile", {
+        const response = await axios.get("https://english-learning-backend-production.up.railway.app/api/users/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
