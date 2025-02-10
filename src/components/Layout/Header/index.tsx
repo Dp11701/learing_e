@@ -20,7 +20,7 @@ const AppHeader: React.FC = () => {
   const userMenu = (
     <Menu>
       <Menu.Item key="profile">
-        <a href="/profile">Profile</a>
+        <a onClick={() => navigate('/profile')}>Profile</a>
       </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout}>
         Logout
@@ -33,7 +33,7 @@ const AppHeader: React.FC = () => {
       <div className="app-title">LinguaBoost</div>
       <div className="nav-menu">
         <a href="/" className="nav-item"><HomeOutlined /> Home</a>
-        <a href="/lessons" className="nav-item"><BookOutlined /> Lessons</a>
+        <a onClick={()=>{navigate('/lessons')}} className="nav-item"><BookOutlined /> Lessons</a>
       </div>
       <div className="header-actions">
         <Dropdown overlay={userMenu} placement="bottomRight" arrow>
