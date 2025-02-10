@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Layout, List, Card, Progress, Spin, Alert } from "antd";
+import { Layout, List, Card, Progress, Spin, Alert, Typography, Avatar } from "antd";
 import { useUsers } from "../../api/users";
 import "./style.scss";
-import { CheckOutlined } from "@ant-design/icons";
 import CustomButton from "../../components/Button";
 import { commonColor } from "../../constants/variables";
 import useUserStore from "../../store/userStore";
@@ -27,17 +26,25 @@ const calculateProgress = (progress: string): number => {
   const [completed, total] = progress.split(" / ").map(Number);
   return (completed / total) * 100;
 };
+const taskStatusColors = {
+  Incomplete: "#fff1f0",
+  "In Progress": "#e6f7ff",
+  Completed: "#f6ffed",
+};
+
 const Home: React.FC = () => {
   const { data: users, isLoading, error } = useUsers();
-
   const { user, fetchUser } = useUserStore();
   const navigate = useNavigate();
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   if (!user) {
     return (
       <Layout className="home-layout">
         <Layout>
-          <Sider width={200} className="sider">
+          <Sider width={250} className="sider">
             <Spin />
           </Sider>
           <Content className="home-content">
@@ -67,38 +74,36 @@ const Home: React.FC = () => {
       progress: calculateProgress(user.progress.grammar),
     },
   ];
-  useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
-  const handleButtonClick = (status: string) => {
-    if (status === "Incomplete") {
-      navigate('/task')
-    } else {
-      console.log("Continue");
-    }
+
+  const handleButtonClick = (id: string) => {
+    const routes: Record<string, string> = {
+      word: "/task",
+      listen: "/listen",
+      grammar: "/grammar",
+    };
+    navigate(routes[id]);
   };
 
   return (
     <Layout className="home-layout">
       <Layout>
         {/* Sider for user progress */}
-        <Sider width={200} className="sider">
+        <Sider width={250} className="sider user-list">
           {isLoading ? (
             <Spin />
           ) : error ? (
             <Alert message="Failed to fetch users" type="error" />
           ) : (
             <List
-              header={
-                <div>
-                  <strong>Users</strong>
-                </div>
-              }
+              header={<div className="user-list-header"><strong>Users</strong></div>}
               bordered
               dataSource={users}
               renderItem={(user) => (
-                <List.Item key={user.id}>
-                  <div style={{ flex: 1 }}>
+                <List.Item key={user.id} className="user-list-item">
+                  <Avatar style={{ backgroundColor: "#1890ff" }}>
+                    {user.name.charAt(0).toUpperCase()}
+                  </Avatar>
+                  <div style={{ flex: 1, marginLeft: 10 }}>
                     {user.name}
                     <Progress
                       percent={calculateProgress(user.progress as any)}
@@ -116,18 +121,22 @@ const Home: React.FC = () => {
           <h2>Today's Tasks</h2>
           <div className="task-list">
             {tasks.map((task) => (
-              <Card key={task.id} className="task-card" title={task.title}>
+              <Card
+                key={task.id}
+                className="task-card"
+                title={task.title}
+                style={{ backgroundColor: taskStatusColors[task.status], boxShadow: "0px 4px 10px rgba(0,0,0,0.1)" }}
+              >
+                <div className="progress-container">
+                  <Progress type="circle" percent={task.progress} width={50} />
+                </div>
                 {task.status === "Completed" ? (
-                  <CheckOutlined style={{ color: "green", fontSize: "24px" }} />
+                  <Typography.Text className="success-text">Success</Typography.Text>
                 ) : (
                   <CustomButton
-                    onClick={() => handleButtonClick(task.status)}
+                    onClick={() => handleButtonClick(task.id)}
                     title={task.status === "Incomplete" ? "Start" : "Continue"}
-                    color={
-                      task.status === "Incomplete"
-                        ? commonColor.primary.button
-                        : commonColor.secondary.button
-                    }
+                    color={task.status === "Incomplete" ? commonColor.primary.button : commonColor.secondary.button}
                     textColor={commonColor.primary.text}
                   />
                 )}

@@ -8,6 +8,8 @@ import PrivateRoute from "../components/Router/PrivateRoute";
 import PublicRoute from "../components/Router/PublicRoute";
 import TaskPage from "../pages/Task";
 import AuthForm from "../pages/Auth";
+import ListeningPractice from "../pages/ListeningPractice";
+import UnderConstruction from "../pages/UnderConstruction";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -19,14 +21,23 @@ const AppRoutes: React.FC = () => {
             <Home />
           </PrivateRoute>
         }
-      /><Route
-      path="/task"
-      element={
-        <PrivateRoute>
-          <TaskPage />
-        </PrivateRoute>
-      }
-    />
+      />
+      <Route
+        path="/task"
+        element={
+          <PrivateRoute>
+            <TaskPage />
+          </PrivateRoute>
+        }
+      />
+      {/* <Route
+        path="/listen"
+        element={
+          <PrivateRoute>
+            <ListeningPractice />
+          </PrivateRoute>
+        }
+      /> */}
       <Route
         path="/login"
         element={
@@ -43,6 +54,7 @@ const AppRoutes: React.FC = () => {
           </PublicRoute>
         }
       />
+      <Route path="*" element={<UnderConstruction />} />
     </Routes>
   );
 };

@@ -17,7 +17,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   return (
     <Button
       onClick={onClick}
-      style={{ backgroundColor: color, color: textColor }}
+      style={{ backgroundColor: color, color: textColor, minWidth: '6vw' }}
     >
       {title}
     </Button>

@@ -123,7 +123,9 @@ const AuthForm: React.FC = () => {
                     render={({ field }) => <Input {...field} />}
                   />
                   {errors.username && (
-                    <p className="error-message">{errors.username?.message}</p>
+                    <p className="error-message">
+                      {errors.username?.message?.toString() || ""}
+                    </p>
                   )}
                 </Form.Item>
 
@@ -147,7 +149,9 @@ const AuthForm: React.FC = () => {
                     )}
                   />
                   {errors.password && (
-                    <p className="error-message">{errors.password?.message}</p>
+                    <p className="error-message">
+                      {errors.password?.message?.toString() || ""}
+                    </p>
                   )}
                 </Form.Item>
 
@@ -177,7 +181,9 @@ const AuthForm: React.FC = () => {
                     render={({ field }) => <Input {...field} />}
                   />
                   {errors.name && (
-                    <p className="error-message">{errors.name.message}</p>
+                    <p className="error-message">
+                      {errors.name.message?.toString() || ""}
+                    </p>
                   )}
                 </div>
 
@@ -199,7 +205,9 @@ const AuthForm: React.FC = () => {
                     render={({ field }) => <Input {...field} />}
                   />
                   {errors.email && (
-                    <p className="error-message">{errors.email.message}</p>
+                    <p className="error-message">
+                      {errors.email.message?.toString() || ""}
+                    </p>
                   )}
                 </div>
 
@@ -220,7 +228,9 @@ const AuthForm: React.FC = () => {
                     render={({ field }) => <Input {...field} />}
                   />
                   {errors.username && (
-                    <p className="error-message">{errors.username.message}</p>
+                    <p className="error-message">
+                      {errors?.username.message?.toString() || ""}
+                    </p>
                   )}
                 </div>
 
@@ -239,7 +249,9 @@ const AuthForm: React.FC = () => {
                     )}
                   />
                   {errors.password && (
-                    <p className="error-message">{errors.password.message}</p>
+                    <p className="error-message">
+                      {errors?.password?.message?.toString() || ""}
+                    </p>
                   )}
                 </div>
 
@@ -263,7 +275,7 @@ const AuthForm: React.FC = () => {
                   />
                   {errors.confirmPassword && (
                     <p className="error-message">
-                      {errors.confirmPassword.message}
+                      {errors.confirmPassword.message?.toString() || ""}
                     </p>
                   )}
                 </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import { Layout, Avatar, Dropdown, Menu } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Layout, Avatar, Dropdown, Menu, Input, Badge } from "antd";
+import { UserOutlined, BellOutlined, SearchOutlined, HomeOutlined, BookOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
 import useUserStore from "../../../store/userStore";
@@ -30,8 +30,12 @@ const AppHeader: React.FC = () => {
 
   return (
     <Header className="app-header">
-      <div className="app-title">English Learning Dashboard</div>
-      <div className="user-section">
+      <div className="app-title">LinguaBoost</div>
+      <div className="nav-menu">
+        <a href="/" className="nav-item"><HomeOutlined /> Home</a>
+        <a href="/lessons" className="nav-item"><BookOutlined /> Lessons</a>
+      </div>
+      <div className="header-actions">
         <Dropdown overlay={userMenu} placement="bottomRight" arrow>
           <div className="user-info">
             <Avatar icon={<UserOutlined />} />

@@ -55,17 +55,15 @@ const Flashcard: React.FC<FlashcardProps> = ({
             <p className="meaning">{meaning}</p>
           </div>
 
-          <p className="example">{example}</p>
+          <div className="meaning-wrapper">
+            <Typography>Ví dụ:</Typography>
+            <p className="example">{example}</p>
+          </div>
           <Button
             className="flip-button"
             icon={<SwapOutlined />}
             onClick={handleFlip}
           />
-          {/* <Button
-            className="read-button"
-            icon={<SoundOutlined />}
-            onClick={handleRead}
-          /> */}
         </div>
       )}
       <div className="footer_card"></div>
