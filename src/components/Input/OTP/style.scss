@@ -1,5 +1,5 @@
 .otp-card {
-  width: 480px;
+  width: 50vw;
   padding: 32px;
   border-radius: 16px;
   background: #ffffff;
@@ -96,4 +96,9 @@
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
+}
+@media screen and (max-width: 600px) {
+  .otp-card{
+    width: 90vw;
+  }
 }
