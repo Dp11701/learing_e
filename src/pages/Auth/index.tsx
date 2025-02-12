@@ -173,10 +173,6 @@ const AuthForm: React.FC = () => {
                     defaultValue=""
                     rules={{
                       required: "Please input your name!",
-                      minLength: {
-                        value: 3,
-                        message: "Name must be at least 3 characters",
-                      },
                     }}
                     render={({ field }) => <Input {...field} />}
                   />
@@ -220,10 +216,6 @@ const AuthForm: React.FC = () => {
                     defaultValue=""
                     rules={{
                       required: "Please input your username!",
-                      minLength: {
-                        value: 5,
-                        message: "Username must be at least 5 characters",
-                      },
                     }}
                     render={({ field }) => <Input {...field} />}
                   />

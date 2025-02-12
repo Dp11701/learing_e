@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Layout, List, Card, Progress, Spin, Alert, Typography, Avatar } from "antd";
+import React, { useEffect, useState } from "react";
+import { Layout, List, Card, Progress, Spin, Alert, Typography, Avatar, Button } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
 import { useUsers } from "../../api/users";
 import "./style.scss";
 import CustomButton from "../../components/Button";
@@ -36,6 +37,8 @@ const Home: React.FC = () => {
   const { data: users, isLoading, error } = useUsers();
   const { user, fetchUser } = useUserStore();
   const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(true);
+
   useEffect(() => {
     fetchUser();
   }, [fetchUser]);
@@ -87,29 +90,33 @@ const Home: React.FC = () => {
   return (
     <Layout className="home-layout">
       <Layout>
-        {/* Sider for user progress */}
-        <Sider width={250} className="sider user-list">
+        {/* Responsive Sider for user progress */}
+        <Sider width={250} collapsible collapsed={collapsed} className="sider user-list">
+          <Button className="menu-toggle" onClick={() => setCollapsed(!collapsed)}>
+            <MenuOutlined />
+          </Button>
           {isLoading ? (
             <Spin />
           ) : error ? (
             <Alert message="Failed to fetch users" type="error" />
           ) : (
             <List
-              header={<div className="user-list-header"><strong>Users</strong></div>}
-              bordered
+              className={collapsed ? "collapsed-list" : "expanded-list"}
               dataSource={users}
               renderItem={(user) => (
                 <List.Item key={user.id} className="user-list-item">
                   <Avatar style={{ backgroundColor: "#1890ff" }}>
                     {user.name.charAt(0).toUpperCase()}
                   </Avatar>
-                  <div style={{ flex: 1, marginLeft: 10 }}>
-                    {user.name}
-                    <Progress
-                      percent={calculateProgress(user.progress as any)}
-                      size="small"
-                    />
-                  </div>
+                  {!collapsed && (
+                    <div style={{ flex: 1, marginLeft: 10 }}>
+                      {user.name}
+                      <Progress
+                        percent={calculateProgress(user.progress as any)}
+                        size="small"
+                      />
+                    </div>
+                  )}
                 </List.Item>
               )}
             />
@@ -125,7 +132,8 @@ const Home: React.FC = () => {
                 key={task.id}
                 className="task-card"
                 title={task.title}
-                style={{ backgroundColor: taskStatusColors[task.status], boxShadow: "0px 4px 10px rgba(0,0,0,0.1)" }}
+                onClick={() => handleButtonClick(task.id)}
+                style={{ backgroundColor: taskStatusColors[task.status], boxShadow: "0px 4px 10px rgba(0,0,0,0.1)", cursor: 'pointer' }}
               >
                 <div className="progress-container">
                   <Progress type="circle" percent={task.progress} width={50} />

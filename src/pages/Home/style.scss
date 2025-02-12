@@ -1,6 +1,9 @@
 .home-layout {
   background-color: #f5f7fa;
   min-height: 100vh;
+  .ant-layout-sider-trigger{
+    display: none !important;
+  }
 }
 
 .sider {
@@ -60,4 +63,9 @@
 .success-text {
   font-weight: bold;
   color: #52c41a;
+}
+@media screen and (max-width: 600px) {
+  .user-list{
+    // display: none;
+  }
 }

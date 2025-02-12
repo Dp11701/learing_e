@@ -77,3 +77,8 @@ input:-webkit-autofill:focus {
   transform: translateX(0%); /* Loại bỏ hiệu ứng lệch */
   opacity: 1;
 }
+@media screen and (max-width: 600px) {
+  .login-card{
+    width: 98vw;
+  }
+}

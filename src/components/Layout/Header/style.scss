@@ -63,3 +63,15 @@
   transform: scale(1.1);
   color: #f39c12;
 }
+
+.header-actions{
+  margin-right: 20px;
+}
+@media screen and (max-width: 600px) {
+  .app-header{
+    width: 100vw;
+  }
+  .app-title{
+    display: none;
+  }
+}
