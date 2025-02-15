@@ -94,7 +94,7 @@ const LoginForm: React.FC = () => {
               <Input.Password
                 {...field}
                 placeholder="Password"
-                prefix={<LockOutlined />}           
+                prefix={<LockOutlined />}
               />
             )}
           />
@@ -110,23 +110,6 @@ const LoginForm: React.FC = () => {
         <Button type="primary" htmlType="submit" className="btn">
           Login
         </Button>
-
-        <p>or login with social platforms</p>
-
-        <div className="social-icons">
-          <a href="#">
-            <GoogleOutlined />
-          </a>
-          <a href="#">
-            <FacebookOutlined />
-          </a>
-          <a href="#">
-            <GithubOutlined />
-          </a>
-          <a href="#">
-            <LinkedinOutlined />
-          </a>
-        </div>
       </form>
     </div>
   );

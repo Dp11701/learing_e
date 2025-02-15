@@ -164,23 +164,6 @@ const RegisterForm: React.FC = () => {
         <Button type="primary" htmlType="submit" className="btn">
           Register
         </Button>
-
-        <p>or register with social platforms</p>
-
-        <div className="social-icons">
-          <a href="#">
-            <GoogleOutlined />
-          </a>
-          <a href="#">
-            <FacebookOutlined />
-          </a>
-          <a href="#">
-            <GithubOutlined />
-          </a>
-          <a href="#">
-            <LinkedinOutlined />
-          </a>
-        </div>
       </form>
     </div>
   );
