@@ -10,6 +10,7 @@ import TaskPage from "../pages/Task";
 import AuthForm from "../pages/Auth";
 import ListeningPractice from "../pages/ListeningPractice";
 import UnderConstruction from "../pages/UnderConstruction";
+import ProfilePage from "../pages/Profile";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -30,14 +31,14 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
-      {/* <Route
-        path="/listen"
+      <Route
+        path="/profile"
         element={
           <PrivateRoute>
-            <ListeningPractice />
+            <ProfilePage />
           </PrivateRoute>
         }
-      /> */}
+      />
       <Route
         path="/login"
         element={
