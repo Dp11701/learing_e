@@ -67,6 +67,27 @@
 .header-actions{
   margin-right: 20px;
 }
+
+.profile-drawer .ant-drawer-content-wrapper {
+  width: 100% !important;
+ }
+ .profile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+ }
+ .profile-content h3 {
+  margin-top: 10px;
+  font-size: 20px;
+ }
+ .profile-content p {
+  margin: 5px 0 20px;
+  color: gray;
+ }
+ .profile-content button {
+  margin-bottom: 10px;
+ }
 @media screen and (max-width: 600px) {
   .app-header{
     width: 100vw;

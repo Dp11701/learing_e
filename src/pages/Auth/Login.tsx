@@ -107,7 +107,7 @@ const LoginForm: React.FC = () => {
           <a href="#">Forgot Password?</a>
         </div>
 
-        <Button type="primary" htmlType="submit" className="btn">
+        <Button type="primary" htmlType="submit" className="btn" loading={loginMutation.isPending}>
           Login
         </Button>
       </form>
