@@ -5,7 +5,16 @@
     height: 100vh;
     background-color: #f4f4f4;
   }
+  .avatar-container {
+    position: relative;
+    display: inline-block;
+  }
   
+  .upload-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
   .profile-content {
     display: flex;
     justify-content: center;

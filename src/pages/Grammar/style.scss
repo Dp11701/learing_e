@@ -1,0 +1,116 @@
+$primary-color: #1890ff;
+$success-color: #52c41a;
+$error-color: #f5222d;
+$card-bg: #ffffff;
+$shadow: 0 4px 8px rgba(0,0,0,0.1);
+$border-radius: 16px;
+$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.grammar-container {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ padding: 20px;
+ font-family: $font-family;
+ height: 100%;
+ .progress-bar {
+   width: 100%;
+   height: 10px;
+   background-color: #e0e0e0;
+   border-radius: 5px;
+   overflow: hidden;
+   .progress {
+     height: 100%;
+     background-color: $primary-color;
+     transition: width 0.3s ease;
+   }
+ }
+}
+
+// grammar card css
+
+.grammar-card {
+    width: 50vw;
+    padding: 32px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+  
+  .grammar-card.shake {
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  .grammar-card.correct {
+    animation: correctGlow 1s ease-in-out infinite alternate;
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  @keyframes correctGlow {
+    0% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.8); }
+  }
+  
+//   .grammar-card .ant-card-body {
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     background-color: #f9fafb;
+//   }
+  
+  .grammar-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .grammar-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+  
+  .ant-input-grammar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+
+  
+//   .grammar-card.correct .ant-input-grammar input {
+//     border-color: #22c55e;
+//     background-color: #dcfce7;
+//     animation: bounce 0.6s ease-in-out;
+//   }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @media screen and (max-width: 600px) {
+    .grammar-card{
+      width: 90vw;
+    }
+  }
+  

@@ -19,12 +19,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
 import useUserStore from "../../../store/userStore";
+import ProfilePage from "../../../pages/Profile";
 
 const { Header } = Layout;
 
 const AppHeader: React.FC = () => {
   const user = useUserStore((state) => state.user);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [isShowProfile, setIsShoProfile] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -74,16 +76,20 @@ const AppHeader: React.FC = () => {
         visible={menuVisible}
         className="profile-drawer"
       >
-        <div className="profile-content">
-          <Avatar size={80} icon={<UserOutlined />} />
-          <h3>{user?.name || "User Name"}</h3>
-          <Button type="primary" block onClick={() => navigate("/profile")}>
-            View Profile
-          </Button>
-          <Button block onClick={handleLogout}>
-            Logout
-          </Button>
-        </div>
+        {isShowProfile ? (
+          <ProfilePage />
+        ) : (
+          <div className="profile-content">
+            <Avatar size={80} icon={<UserOutlined />} />
+            <h3>{user?.name || "User Name"}</h3>
+            <Button type="primary" block onClick={() => setIsShoProfile(true)}>
+              View Profile
+            </Button>
+            <Button block onClick={handleLogout}>
+              Logout
+            </Button>
+          </div>
+        )}
       </Drawer>
     </Header>
   );

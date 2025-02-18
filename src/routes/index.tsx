@@ -11,6 +11,7 @@ import AuthForm from "../pages/Auth";
 import ListeningPractice from "../pages/ListeningPractice";
 import UnderConstruction from "../pages/UnderConstruction";
 import ProfilePage from "../pages/Profile";
+import GrammarPractice from "../pages/Grammar";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -28,6 +29,14 @@ const AppRoutes: React.FC = () => {
         element={
           <PrivateRoute>
             <TaskPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/grammar"
+        element={
+          <PrivateRoute>
+            <GrammarPractice />
           </PrivateRoute>
         }
       />
