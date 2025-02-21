@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Card, Button, Progress, message } from "antd";
+import { Card, Progress, message } from "antd";
+import { FireFilled, FireTwoTone } from "@ant-design/icons";
 import "./style.scss";
 import CardCheck from "./CardCheck";
+import { set } from "react-hook-form";
 const grammarData = {
   tense: "Present Simple",
   structure: "Subject + Verb (base form)",
@@ -15,29 +17,36 @@ const grammarData = {
 };
 const GrammarLearning = () => {
   const [step, setStep] = useState(0);
-  const [input, setInput] = useState<Array<any>>([]);
-  const [completed, setCompleted] = useState(0);
-  const handleWordClick = (word) => {
-    setInput([...input, word]);
-  };
-  const handleSubmit = () => {
-    const correct = grammarData.examples[step].split(" ");
-    if (JSON.stringify(input) === JSON.stringify(correct)) {
-      message.success("Correct! Well done!");
-      setCompleted(((step + 1) / grammarData.examples.length) * 100);
+  const totalExamples = grammarData.examples.length;
+  const completed = (step / totalExamples) * 100;
+  const handleSuccess = () => {
+    if (step < totalExamples) {
       setStep(step + 1);
-      setInput([]);
     } else {
-      message.error("Incorrect! Try again.");
-      // Add shake effect via CSS class
+      console.log("vaoday");
+      setStep(totalExamples);
+      // alert("🎉 Hoàn thành khóa học!");
     }
   };
   return (
     <div className="grammar-container">
-      <Progress percent={completed} showInfo={false} />
+      <div style={{ display: "flex", position: "relative", width: "100%" }}>
+        <Progress percent={completed} showInfo={false} strokeColor="orange" />
+        <FireTwoTone
+          style={{
+            color: "red",
+            position: "absolute",
+            left: `${completed}%`,
+            transform: "translateX(-50%)",
+            fontSize: 20,
+          }}
+        />
+      </div>
       <CardCheck
-        example="aa aa aas sda"
-        onSuccess={() => console.log("dung roi")}
+        example={
+          step < grammarData.examples.length ? grammarData.examples[step] : ""
+        } // Chuyển sang câu tiếp theo
+        onSuccess={handleSuccess} // Khi đúng, tăng step
         structure={grammarData.structure}
         tense={grammarData.tense}
       />

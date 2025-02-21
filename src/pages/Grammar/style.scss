@@ -8,11 +8,11 @@ $font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 .grammar-container {
  display: flex;
  flex-direction: column;
- justify-content: center;
+ justify-content: space-between;
  align-items: center;
  padding: 20px;
  font-family: $font-family;
- height: 100%;
+ height: 70%;
  .progress-bar {
    width: 100%;
    height: 10px;
@@ -43,6 +43,12 @@ $font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     &:hover {
       transform: scale(1.02);
     }
+    .grammar-card-input {
+      border: none;
+      border-bottom: 1px solid #000; 
+      font-style: italic;
+      font-family: 'Georgia', serif; 
+    }
   }
   
   .grammar-card.shake {
@@ -65,16 +71,7 @@ $font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     0% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
     100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.8); }
   }
-  
-//   .grammar-card .ant-card-body {
-//     width: 100%;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-//     background-color: #f9fafb;
-//   }
-  
+
   .grammar-input-container {
     display: flex;
     flex-direction: column;
